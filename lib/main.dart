@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'InVoid',
       theme: InVoidTheme.theme,
-      home: MainPage(cameras),
+      home: MainPage(),
     );
   }
 }

@@ -32,6 +32,7 @@ dependencies:
   firebase_ml_vision: ^0.9.6+3
   google_fonts: ^1.1.0
   camera: ^0.5.8+7
+  image: ^2.1.18
 
 dev_dependencies:
   flutter_test:
