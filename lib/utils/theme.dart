@@ -21,6 +21,6 @@ class InVoidTheme {
       textTheme: _textTheme.copyWith(
           headline1: _textTheme.headline1.copyWith(
               fontSize: 20.0, color: textColor, fontWeight: FontWeight.w700),
-          headline2:
-              _textTheme.headline2.copyWith(fontSize: 15.0, color: textColor)));
+          headline2: _textTheme.headline2.copyWith(
+              fontSize: 15.0, color: textColor, fontWeight: FontWeight.w600)));
 }

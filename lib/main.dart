@@ -1,14 +1,9 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:invoid/theme.dart';
-
-import 'mainPage.dart';
-
-List<CameraDescription> cameras;
+import 'package:invoid/selectionPage.dart';
+import 'package:invoid/utils/theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  cameras = await availableCameras();
   runApp(MyApp());
 }
 
@@ -19,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'InVoid',
       theme: InVoidTheme.theme,
-      home: MainPage(),
+      home: SelectionPage(),
     );
   }
 }
