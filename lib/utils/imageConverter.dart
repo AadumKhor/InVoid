@@ -3,15 +3,15 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 const shift = (0xFF << 24);
-Future<Image> convertYUV420toImageColor(CameraImage image) async {
+Future<List<int>> convertYUV420toImageColor(CameraImage image) async {
   try {
     final int width = image.width;
     final int height = image.height;
     final int uvRowStride = image.planes[1].bytesPerRow;
     final int uvPixelStride = image.planes[1].bytesPerPixel;
 
-    print("uvRowStride: " + uvRowStride.toString());
-    print("uvPixelStride: " + uvPixelStride.toString());
+    // print("uvRowStride: " + uvRowStride.toString());
+    // print("uvPixelStride: " + uvPixelStride.toString());
 
     // imgLib -> Image package from https://pub.dartlang.org/packages/image
     var img = I.Image(width, height); // Create Image buffer
@@ -39,9 +39,10 @@ Future<Image> convertYUV420toImageColor(CameraImage image) async {
     }
 
     I.PngEncoder pngEncoder = new I.PngEncoder(level: 0, filter: 0);
-    List<int> png = pngEncoder.encodeImage(img);
-    // muteYUVProcessing = false;
-    return Image.memory(png);
+    // List<int> png = pngEncoder.encodeImage(img);
+    // // muteYUVProcessing = false;
+    // return Image.memory(png);
+    return pngEncoder.encodeImage(img);
   } catch (e) {
     print(">>>>>>>>>>>> ERROR:" + e.toString());
   }

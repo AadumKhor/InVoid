@@ -1,8 +1,10 @@
 import 'package:camera/camera.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/material.dart';
+import 'package:image/image.dart';
 import 'package:invoid/facePainter.dart';
 import 'package:invoid/utils/utils.dart';
+import 'dart:ui' as ui;
 
 class StreamPage extends StatefulWidget {
   @override
@@ -15,7 +17,7 @@ class _StreamPageState extends State<StreamPage> with WidgetsBindingObserver {
 
   CameraController controller;
   bool isInitialized = false;
-  Image imageFile;
+  ui.Image imageFile;
   List<Rect> rect = List<Rect>();
   bool isFaceDetected = false;
 
@@ -80,28 +82,31 @@ class _StreamPageState extends State<StreamPage> with WidgetsBindingObserver {
 
     if (faces.length > 0) setState(() => isFaceDetected = true);
 
-    print('Face detected  : $isFaceDetected');
-
     if (isFaceDetected) {
       final temp = await convertYUV420toImageColor(image);
-      if (temp != null)
+      ui.decodeImageFromList(temp, (result) {
         setState(() {
-          imageFile = temp;
+          imageFile = result;
+          controller.stopImageStream();
+          controller.dispose();
         });
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: controller.value.isInitialized
-          ? !isFaceDetected
+      body: controller != null
+          ? !isFaceDetected && imageFile == null
               ? AspectRatio(
                   aspectRatio: controller.value.aspectRatio,
                   child: CameraPreview(controller),
                 )
               : Container(
+                  margin: EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
+                    border: Border.all(),
                     color: Colors.white,
                     boxShadow: const [
                       BoxShadow(blurRadius: 20),
@@ -111,6 +116,7 @@ class _StreamPageState extends State<StreamPage> with WidgetsBindingObserver {
                     child: SizedBox(
                       width: imageFile.width.toDouble(),
                       height: imageFile.height.toDouble(),
+                      // child: imageFile,
                       child: CustomPaint(
                         painter: FacePainter(rect: rect, imageFile: imageFile),
                       ),

@@ -1,9 +1,9 @@
-import 'dart:ui';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 class FacePainter extends CustomPainter {
   List<Rect> rect;
-  var imageFile;
+  ui.Image imageFile;
 
   FacePainter({@required this.rect, @required this.imageFile});
 
@@ -18,7 +18,7 @@ class FacePainter extends CustomPainter {
         rectangle,
         Paint()
           ..color = Colors.red
-          ..strokeWidth = 16.0
+          ..strokeWidth = 6.0
           ..style = PaintingStyle.stroke,
       );
     }
